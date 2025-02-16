@@ -36,5 +36,9 @@ readMemos();
 const form = document.querySelector("#memo-form");
 form.addEventListener("submit", handleSubmit);
 
-// 수정하기 기능 넣기
+/*
+function deleteMemo(id) {
+    
+}*/
+
 // 삭제 기능 넣기
