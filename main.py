@@ -19,4 +19,4 @@ def create_memo(memo:Memo):
 def get_memos():
     return {"memos": memos}
 
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+app.mount("/", StaticFiles(directory="memo-package", html=True), name="memo")
