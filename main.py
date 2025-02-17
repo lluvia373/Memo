@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
 
 app = FastAPI()
 
@@ -11,7 +12,7 @@ class Memo(BaseModel):
 memos = []
 
 @app.post("/memos")
-def create_memo(memo:Memo):
+def create_memo(memo: Memo):
     memos.append(memo)
     return "memo created"
 
@@ -25,6 +26,19 @@ def delete_memo(memo_id: str):
     memo = next((memo for memo in memos if memo.id == memo_id), None)
     if memo:
         memos.remove(memo)
+        return {"message": "memo deleted"}
     else:
         return
-app.mount("/", StaticFiles(directory="memo-package", html=True), name="memo")
+
+
+@app.put("/memos/{memo_id}")
+def edit_memo(memo_id: str, updated_memo: Memo):
+    global memos
+    for memo in memos:
+        if memo.id == memo_id:
+            memo.content = updated_memo.content
+            return {"message": "memo updated"}
+        else:
+            return
+        
+app.mount("/", StaticFiles(directory="memo-package", html = True), name="memo")
