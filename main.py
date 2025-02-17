@@ -19,4 +19,12 @@ def create_memo(memo:Memo):
 def get_memos():
     return {"memos": memos}
 
+@app.delete("/memos/{memo_id}")
+def delete_memo(memo_id: str):
+    global memos
+    memo = next((memo for memo in memos if memo.id == memo_id), None)
+    if memo:
+        memos.remove(memo)
+    else:
+        return
 app.mount("/", StaticFiles(directory="memo-package", html=True), name="memo")
