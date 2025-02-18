@@ -92,7 +92,7 @@ async function editMemo(id, newContent) {
     const res = await fetch(`/memos/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: id, content: newContent}),
+      body: JSON.stringify({ id: id, content: newContent }),
     });
 
     if (!res.ok) {
@@ -108,6 +108,8 @@ async function editMemo(id, newContent) {
     return false;
   }
 }
+
+
 
 readMemos();
 const form = document.querySelector("#memo-form");
